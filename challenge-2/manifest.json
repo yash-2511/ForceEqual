@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedIn Profile Enhancer",
+  "version": "1.0",
+  "description": "Enhances LinkedIn profiles with match score and account status",
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["https://www.linkedin.com/*"],
+  "action": {
+    "default_title": "Profile Enhancer"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.linkedin.com/in/*"],
+      "js": ["content.js"],
+      "css": ["style.css"]
+    }
+  ]
+}

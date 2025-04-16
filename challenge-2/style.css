@@ -1,0 +1,35 @@
+#enhancer-widget {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 280px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  z-index: 10000;
+  border-radius: 10px;
+}
+
+#enhancer-widget .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-tag {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.status-target {
+  background-color: green;
+}
+
+.status-not-target {
+  background-color: red;
+}
