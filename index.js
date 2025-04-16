@@ -1,26 +1,28 @@
+import path from 'path';
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import router from './routes/userRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import accountRoutes from './routes/accountRoutes.js';
 
-const app = express();
 dotenv.config();
+const app = express();
+const __dirname = path.resolve();
+
 app.use(bodyParser.json());
+app.use('/api', authRoutes);
+app.use('/api', accountRoutes);
 
-const PORT = process.env.PORT || 7000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/forceEqual';
+// Serve static frontend
+app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(MONGO_URI).then(()=>{
-    console.log('MongoDB connected successfully');
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    }   );
-}).catch((err) => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);
-});
-app.use('/api/user', router);
 app.get('/', (req, res) => {
-    res.send('Hello from the server!');
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
+
+const PORT = process.env.PORT || 8000;
+mongoose.connect(process.env.MONGO_URI).then(() => {
+  console.log('MongoDB connected');
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}).catch(err => console.error('DB Error:', err));
